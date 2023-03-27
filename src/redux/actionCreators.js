@@ -1,3 +1,4 @@
+import { navigate } from '../../App';
 import * as actionType from './actionType';
 
 export const addPlace = place => dispatch => {
@@ -45,6 +46,12 @@ export const deletePlace = key => {
     }
 }
 
+export const authUser = () => {
+    return{
+        type: actionType.AUTHENTICATE_USER
+    }
+}
+
 export const trySignup = (email, password) => (dispatch) => {
   fetch(
     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBnkgXbQ54BehfEarLjVCuilxZb39iosG8",
@@ -66,6 +73,13 @@ export const trySignup = (email, password) => (dispatch) => {
     })
     .then((res) => res.json())
     .then((data) => {
+        if(data.error){
+            alert(data.error.message);
+        }else{
+            navigate("home");
+            dispatch(authUser());
+        }
       console.log(data);
     });
 }; 
+

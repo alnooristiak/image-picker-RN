@@ -7,11 +7,17 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/components/login/Login";
 import NavigationTab from "./src/components/navigationTab/NavigationTab";
 
+const navigationRef = React.createRef();
+
+export const navigate = (name, params) => {
+  navigationRef.current && navigationRef.current.navigate(name, params);
+}
+
 const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Provider store={store}>
           <Stack.Navigator>
             <Stack.Screen name="login" component={Login} />

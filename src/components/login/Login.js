@@ -9,6 +9,12 @@ import React, { useDeferredValue, useState } from "react";
 import { trySignup } from "../../redux/actionCreators";
 import { connect } from "react-redux";
 
+const mapStateToProps = state => {
+  return{
+    isAuth: state.isAuth
+}
+}
+
 const mapDispatchToProps = dispatch => {
   return{
     trySignup: (email, password) => dispatch(trySignup(email, password))
@@ -56,11 +62,16 @@ const Login = (props) => {
     if (email !== "" && password !== "") {
       if (re.test(email)) {
         if (authState.mode === "login") {
-          props.navigation.navigate("home");
+          if(props.isAuth){
+            props.navigation.navigate("home");
+          }else{
+            alert("Sign up Failed");
+          }
+          
         } else {
           if (password === confirmPassword) {
             props.trySignup(email, password);
-            props.navigation.navigate("home");
+            // props.navigation.navigate("home");
           } else {
             alert("Password dos'n match");
           }
@@ -127,7 +138,7 @@ const Login = (props) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
   inputContainer: {

@@ -1,6 +1,7 @@
 import * as actionType from "./actionType";
 const intiState = {
   placelist: [],
+  isAuth: false
 };
 
 export const rootReducer = (state = intiState, action) => {
@@ -20,6 +21,11 @@ export const rootReducer = (state = intiState, action) => {
           ...state,
           placelist: action.payload
         }
+        case actionType.AUTHENTICATE_USER:
+          return{
+            ...state,
+            isAuth: true
+          }
     default:
       return state;
   }

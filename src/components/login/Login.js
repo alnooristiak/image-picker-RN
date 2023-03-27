@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const Login = (props) => {
   const [authState, setAuthState] = useState({
-    mode: 'Login',
+    mode: 'login',
     inputs: {
       email: '',
       password: '',
@@ -14,8 +14,20 @@ const Login = (props) => {
   const swtchViews = () => {
     setAuthState({
       ...authState,
-      mode: 'signUp'
+      mode: authState.mode === "login" ? "signup" : "login"
     })
+  }
+
+  let confirmPassFild = null;
+  if (authState.mode === "signup"){
+    confirmPassFild = (
+      <TextInput 
+        style={styles.inputSections}
+        placeholderTextColor={'red'} 
+        placeholder="Conferm Password" 
+        value={authState.inputs.confirmPassword}
+        />
+    )
   }
 
   return (
@@ -25,7 +37,7 @@ const Login = (props) => {
         onPress={() => swtchViews()
         }
       >
-        <Text>{authState.mode === "login" ? "swtch to sign up" : "Swtch to login"}</Text>
+        <Text style={styles.btnText}>{authState.mode === "login" ? "swtch to sign up" : "Swtch to login"}</Text>
       </TouchableOpacity>
 
       <View style={styles.inputContainer}>
@@ -39,20 +51,16 @@ const Login = (props) => {
         placeholderTextColor={'red'}
         placeholder="Password" 
         />
-        <TextInput 
-        style={styles.inputSections}
-        placeholderTextColor={'red'} 
-        placeholder="Conferm Password" 
-        />
+        {confirmPassFild}
       </View>
 
       <TouchableOpacity
       style={{...styles.btnStyles, marginTop: 15}}
-        onPress={() => {
-          props.navigation.navigate("home");
-        }}
+        // onPress={() => {
+        //   props.navigation.navigate("home");
+        // }}
       >
-        <Text>home</Text>
+        <Text style={styles.btnText}>{authState.mode === "login" ? "Login" : "signup"}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -84,5 +92,10 @@ const styles = StyleSheet.create({
   },
   signUpBtn : {
     backgroundColor: 'green'
+  },
+  btnText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18
   }
 });

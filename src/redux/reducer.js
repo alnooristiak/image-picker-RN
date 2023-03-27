@@ -15,6 +15,11 @@ export const rootReducer = (state = intiState, action) => {
         ...state,
         placelist: state.placelist.filter(place => place.key !== action.payload),
       };
+      case actionType.SET_PLACES:
+        return {
+          ...state,
+          placelist: action.payload
+        }
     default:
       return state;
   }

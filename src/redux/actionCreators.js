@@ -13,7 +13,7 @@ export const addPlace = place => dispatch => {
 export const setPlaces = places => {
     return {
         type: actionType.SET_PLACES,
-        payload: place
+        payload: places
     }
 }
 
@@ -44,3 +44,28 @@ export const deletePlace = key => {
         payload: key
     }
 }
+
+export const trySignup = (email, password) => (dispatch) => {
+  fetch(
+    "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBnkgXbQ54BehfEarLjVCuilxZb39iosG8",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .catch((err) => {
+      console.log(err);
+      alert("Authentication failed");
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}; 

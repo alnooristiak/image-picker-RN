@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import React, { useDeferredValue, useState } from "react";
-import { trySignup } from "../../redux/actionCreators";
+import { tryAuth } from "../../redux/actionCreators";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    trySignup: (email, password) => dispatch(trySignup(email, password))
+    tryAuth: (email, password, mode) => dispatch(tryAuth(email, password, mode))
   }
 }
 
@@ -62,15 +62,10 @@ const Login = (props) => {
     if (email !== "" && password !== "") {
       if (re.test(email)) {
         if (authState.mode === "login") {
-          if(props.isAuth){
-            props.navigation.navigate("home");
-          }else{
-            alert("Sign up Failed");
-          }
-          
+          props.tryAuth(email, password, "login");
         } else {
           if (password === confirmPassword) {
-            props.trySignup(email, password);
+            props.tryAuth(email, password, "signup");
             // props.navigation.navigate("home");
           } else {
             alert("Password dos'n match");

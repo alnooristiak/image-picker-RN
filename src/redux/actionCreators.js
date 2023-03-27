@@ -1,8 +1,9 @@
 import { navigate } from '../../App';
 import * as actionType from './actionType';
 
-export const addPlace = place => dispatch => {
-    fetch("https://image-picker-3447f-default-rtdb.firebaseio.com/places.json", {
+export const addPlace = place => (dispatch, getState) => {
+    let token = getState().token;
+    fetch(`https://image-picker-3447f-default-rtdb.firebaseio.com/places.json?auth=${token}`, {
         method: 'POST',
         body: JSON.stringify(place)
     })
@@ -18,8 +19,9 @@ export const setPlaces = places => {
     }
 }
 
-export const loadPlaces = () => dispatch =>{
-    fetch("https://image-picker-3447f-default-rtdb.firebaseio.com/places.json")
+export const loadPlaces = () => (dispatch, getState) =>{
+    let token = getState().token;
+    fetch(`https://image-picker-3447f-default-rtdb.firebaseio.com/places.json?auth=${token}`)
     .catch(err => {
         alert('sumting is wrong, sorry');
         console.log(err);
@@ -46,15 +48,22 @@ export const deletePlace = key => {
     }
 }
 
-export const authUser = () => {
+export const authUser = token => {
     return{
-        type: actionType.AUTHENTICATE_USER
+        type: actionType.AUTHENTICATE_USER,
+        payload: token
     }
 }
 
-export const trySignup = (email, password) => (dispatch) => {
-  fetch(
-    "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBnkgXbQ54BehfEarLjVCuilxZb39iosG8",
+export const tryAuth = (email, password, mode) => (dispatch) => {
+    let url = "";
+    const API_KEY = "AIzaSyBnkgXbQ54BehfEarLjVCuilxZb39iosG8";
+    if(mode == "signup"){
+        url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + API_KEY;
+    }else if (mode == "login"){
+        url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + API_KEY;
+    }
+  fetch(url,
     {
       method: "POST",
       body: JSON.stringify({
@@ -76,8 +85,8 @@ export const trySignup = (email, password) => (dispatch) => {
         if(data.error){
             alert(data.error.message);
         }else{
-            navigate("home");
-            dispatch(authUser());
+            dispatch(authUser(data.idToken));
+            navigate("home");   
         }
       console.log(data);
     });

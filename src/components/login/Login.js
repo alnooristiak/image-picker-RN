@@ -5,9 +5,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useDeferredValue, useState } from "react";
+import React, { useDeferredValue, useEffect, useState } from "react";
 import { tryAuth } from "../../redux/actionCreators";
 import { connect } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
+
 
 const mapStateToProps = state => {
   return{
@@ -31,6 +33,18 @@ const Login = (props) => {
       confirmPassword: "",
     },
   });
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    setAuthState({
+      ...authState,
+      inputs: {
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+    });
+  }, [isFocused]);
 
   const swtchViews = () => {
     setAuthState({

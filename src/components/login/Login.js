@@ -10,19 +10,18 @@ import { tryAuth } from "../../redux/actionCreators";
 import { connect } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.isAuth,
+  };
+};
 
-const mapStateToProps = state => {
-  return{
-    isAuth: state.isAuth
-}
-}
-
-const mapDispatchToProps = dispatch => {
-  return{
-    tryAuth: (email, password, mode) => dispatch(tryAuth(email, password, mode))
-  }
-}
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    tryAuth: (email, password, mode) =>
+      dispatch(tryAuth(email, password, mode)),
+  };
+};
 
 const Login = (props) => {
   const [authState, setAuthState] = useState({
@@ -101,7 +100,7 @@ const Login = (props) => {
         placeholderTextColor={"red"}
         placeholder="Conferm Password"
         value={authState.inputs.confirmPassword}
-        onChangeText={value => updatsInputs(value, "confirmPassword")}
+        onChangeText={(value) => updatsInputs(value, "confirmPassword")}
       />
     );
   }
@@ -122,13 +121,13 @@ const Login = (props) => {
           style={styles.inputSections}
           placeholderTextColor={"red"}
           placeholder="Enter your Email"
-          onChangeText={value => updatsInputs(value, "email")}
+          onChangeText={(value) => updatsInputs(value, "email")}
         />
         <TextInput
           style={styles.inputSections}
           placeholderTextColor={"red"}
           placeholder="Password"
-          onChangeText={value => updatsInputs(value, "password")}
+          onChangeText={(value) => updatsInputs(value, "password")}
         />
         {confirmPassFild}
       </View>

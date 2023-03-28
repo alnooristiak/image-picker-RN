@@ -1,6 +1,6 @@
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
-import pizzaImg from '../../../assets/image/pizza.jpg';
+import pizzaImg from "../../../assets/image/pizza.jpg";
 
 const InputPlace = (props) => {
   return (

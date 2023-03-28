@@ -2,7 +2,7 @@ import * as actionType from "./actionType";
 const intiState = {
   placelist: [],
   isAuth: false,
-  token: null
+  token: null,
 };
 
 export const rootReducer = (state = intiState, action) => {
@@ -15,19 +15,21 @@ export const rootReducer = (state = intiState, action) => {
     case actionType.DELETE_PLACE:
       return {
         ...state,
-        placelist: state.placelist.filter(place => place.key !== action.payload),
+        placelist: state.placelist.filter(
+          (place) => place.key !== action.payload
+        ),
       };
-      case actionType.SET_PLACES:
-        return {
-          ...state,
-          placelist: action.payload
-        }
-        case actionType.AUTHENTICATE_USER:
-          return{
-            ...state,
-            isAuth: true,
-            token: action.payload
-          }
+    case actionType.SET_PLACES:
+      return {
+        ...state,
+        placelist: action.payload,
+      };
+    case actionType.AUTHENTICATE_USER:
+      return {
+        ...state,
+        isAuth: true,
+        token: action.payload,
+      };
     default:
       return state;
   }

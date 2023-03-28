@@ -17,7 +17,7 @@ const PickImage = (props) => {
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
-        base64: true
+        base64: true,
       });
       if (!reasult.canceled) {
         props.setImage(`data:image/jpg;base64,${reasult.base64}`);

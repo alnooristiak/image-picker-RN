@@ -8,15 +8,18 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { MaterialIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 const PlaceDetail = (props) => {
   return (
     <>
       <Modal>
         <View style={styles.container}>
-          <Image style={styles.imageStyle} source={{uri: props.place.image}} />
+          <Image
+            style={styles.imageStyle}
+            source={{ uri: props.place.image }}
+          />
           <Text style={styles.textStyle}>{props.place.value}</Text>
           <View>
             <TouchableOpacity
@@ -25,11 +28,12 @@ const PlaceDetail = (props) => {
                 props.handleDeleteItem(props.place.key);
               }}
             >
-              <MaterialIcons 
-              style={styles.iconStyle}
-              name="delete" 
-              size={24} 
-              color="white" />
+              <MaterialIcons
+                style={styles.iconStyle}
+                name="delete"
+                size={24}
+                color="white"
+              />
               <Text style={styles.btnText}>Delete</Text>
             </TouchableOpacity>
 
@@ -39,11 +43,12 @@ const PlaceDetail = (props) => {
                 props.handleDeleteItem();
               }}
             >
-              <AntDesign 
-              style={styles.iconStyle} 
-              name="closecircle" 
-              size={24}
-              color="white" />
+              <AntDesign
+                style={styles.iconStyle}
+                name="closecircle"
+                size={24}
+                color="white"
+              />
               <Text style={styles.btnText}>Close</Text>
             </TouchableOpacity>
           </View>
@@ -77,23 +82,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   btnStyle: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center'
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   btnText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
   },
   iconStyle: {
-    marginRight: 7
+    marginRight: 7,
   },
   btnBlue: {
-    backgroundColor: '#54a0ff'
-  }
+    backgroundColor: "#54a0ff",
+  },
 });
